@@ -50,7 +50,7 @@ publishing {
 	repositories {
 		maven {
 			ext.extProgram = new Properties()
-			extProgram.load(file(System.getProperty("user.home") + "/.vl/credentials").newDataInputStream())
+			extProgram.load(file(System.getProperty("user.home") + "/.vls/credentials").newDataInputStream())
 			name = "GitHubPackages"
 			url = uri("https://maven.pkg.github.com/virtual-line-software/vls-registry")
 			credentials {
