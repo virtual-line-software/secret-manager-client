@@ -1,6 +1,7 @@
 package software.virtualline.hashicorpautoconfig.properties;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -11,8 +12,10 @@ import org.springframework.stereotype.Component;
 @PropertySource("file:${user.home}/.vls/credentials")
 public class HashiCorpProperties {
 
+    @Value("${hashicorp_client_id}")
     private String clientId;
 
+    @Value("${hashicorp_client_secret}")
     private String clientSecret;
 
     private String organisationId;
