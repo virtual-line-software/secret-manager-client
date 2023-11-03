@@ -18,6 +18,12 @@ public class HashiCorpProperties {
     @Value("${hashicorp_client_secret}")
     private String clientSecret;
 
+    @Value("${hashicorp_organisation_id}")
+    private String OrgId;
+
+    @Value("${hashicorp_project_id}")
+    private String projId;
+
     private String secretName;
 
     private String appName;

@@ -20,8 +20,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class HashiCorpApi {
 
-    private static final String HCP_ORG_ID = "93f0192f-18ca-4798-9cff-f4ce4a0ae269";
-    private static final String HCP_PROJ_ID = "7999d43e-c88f-4163-a04c-09ae0902a1b0";
     private static final String HASHICORP_SECRET_URL_PATTERN = "https://api.cloud.hashicorp.com/secrets/2023-06-13/organizations/%s/projects/%s/apps/%s/open/%s";
 
     private final WebClient initWebClient;
@@ -34,7 +32,7 @@ public class HashiCorpApi {
         var secretName = Lombok.checkNotNull(hashiCorpProps.getSecretName(), "the secretName is not specified");
 
         return initWebClient.get()
-                .uri(String.format(HASHICORP_SECRET_URL_PATTERN, HCP_ORG_ID, HCP_PROJ_ID,  appName, secretName))
+                .uri(String.format(HASHICORP_SECRET_URL_PATTERN, hashiCorpProps.getOrgId(), hashiCorpProps.getProjId(),  appName, secretName))
                 .retrieve()
                 .bodyToMono(JsonNode.class)
                 .flatMap(jsonNode -> Mono.just(jsonNode.at("/secret/version/value").asText()))
