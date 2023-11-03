@@ -32,7 +32,7 @@ public class HashiCorpApi {
         var secretName = Lombok.checkNotNull(hashiCorpProps.getSecretName(), "the secretName is not specified");
 
         return initWebClient.get()
-                .uri(String.format(HASHICORP_SECRET_URL_PATTERN, hashiCorpProps.getOrgId(), hashiCorpProps.getProjId(),  appName, secretName))
+                .uri(String.format(HASHICORP_SECRET_URL_PATTERN, hashiCorpProps.getOrganisationId(), hashiCorpProps.getProjectId(),  appName, secretName))
                 .retrieve()
                 .bodyToMono(JsonNode.class)
                 .flatMap(jsonNode -> Mono.just(jsonNode.at("/secret/version/value").asText()))
