@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'software.virtualline'
-version = '2.0.7'
+version = '2.0.8'
 
 java {
 	sourceCompatibility = '21'
@@ -18,6 +18,10 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.compilerArgs << '-parameters'
 }
 
 repositories {
