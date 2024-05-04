@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import software.virtualline.hashicorpautoconfig.data.PasswordDTO;
+import software.virtualline.hashicorpautoconfig.data.CredentialsDto;
 import software.virtualline.hashicorpautoconfig.properties.HashiCorpProperties;
 
 import java.util.Map;
@@ -26,7 +26,7 @@ public class HashiCorpApi {
     private final ObjectMapper objectMapper;
     private final HashiCorpProperties hashiCorpProps;
 
-    public Map<String, PasswordDTO> fetchPassword() {
+    public Map<String, CredentialsDto> fetchPassword() {
 
         var appName = Lombok.checkNotNull(hashiCorpProps.getAppName(), "the appName is not specified");
         var secretName = Lombok.checkNotNull(hashiCorpProps.getSecretName(), "the secretName is not specified");
@@ -41,7 +41,7 @@ public class HashiCorpApi {
     }
 
     @SneakyThrows
-    private Map<String, PasswordDTO> parseSecrets(String json) {
+    private Map<String, CredentialsDto> parseSecrets(String json) {
         return objectMapper.readValue(json, new TypeReference<>() {});
     }
 

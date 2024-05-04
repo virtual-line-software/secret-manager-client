@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import software.virtualline.hashicorpautoconfig.api.HashiCorpApi;
-import software.virtualline.hashicorpautoconfig.properties.CredentialsProperties;
+import software.virtualline.hashicorpautoconfig.properties.CredentialsDtoList;
 
 @Configuration
 @RequiredArgsConstructor
@@ -17,7 +17,7 @@ public class LibraryConfig {
 
     @Bean
     @Lazy
-    public CredentialsProperties credentialsProperties() {
-        return new CredentialsProperties(hashiCorpApi.fetchPassword());
+    public CredentialsDtoList credentialsProperties() {
+        return new CredentialsDtoList(hashiCorpApi.fetchPassword());
     }
 }
