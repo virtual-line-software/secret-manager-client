@@ -12,27 +12,16 @@ import org.springframework.stereotype.Component;
 @PropertySource(value = "file:${user.home}/.vls/credentials", ignoreResourceNotFound = true)
 public class HashiCorpProperties {
 
-//    @Value("#{systemEnvironment['HASHICORP_CLIENT_ID'] ?: '${hashicorp_client_id}'}")
-//    private String clientId;
-//
-//    @Value("#{systemEnvironment['HASHICORP_CLIENT_SECRET'] ?: '${hashicorp_client_secret}'}")
-//    private String clientSecret;
-
-//    @Value("${HASHICORP_CLIENT_ID:${hashicorp_client_id}}")
-//    private String clientId;
-//
-//    @Value("${HASHICORP_CLIENT_SECRET:${hashicorp_client_secret}}")
-//    private String clientSecret;
-
-    @Value("#{systemEnvironment['HASHICORP_CLIENT_ID'] ?: '${hashicorp_client_id}'}")
+    @Value("#{systemEnvironment['HASHICORP_CLIENT_ID'] ?: '${vls.hashicorp.client-id:defaultClientId}'}")
     private String clientId;
-    @Value("#{systemEnvironment['HASHICORP_CLIENT_SECRET'] ?: '${hashicorp_client_secret}'}")
+
+    @Value("#{systemEnvironment['HASHICORP_CLIENT_SECRET'] ?: '${vls.hashicorp.client-secret:defaultClientSecret}'}")
     private String clientSecret;
 
-//    @Value("${hashicorp_client_id}")
+//    @Value("${HASHICORP_CLIENT_ID:${vls.hashicorp.hashicorp_client_id}}")
 //    private String clientId;
 //
-//    @Value("${hashicorp_client_secret}")
+//    @Value("${HASHICORP_CLIENT_SECRET:${vls.hashicorp.hashicorp_client_secret}}")
 //    private String clientSecret;
 
     private String organisationId;
