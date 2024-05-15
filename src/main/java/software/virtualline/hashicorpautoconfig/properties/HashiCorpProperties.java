@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 @PropertySource("file:${user.home}/.vls/credentials")
 public class HashiCorpProperties {
 
-    @Value("${hashicorp_client_id}")
+    @Value("#{systemEnvironment['HASHICORP_CLIENT_ID'] ?: '${hashicorp_client_id}'}")
     private String clientId;
 
-    @Value("${hashicorp_client_secret}")
+    @Value("#{systemEnvironment['HASHICORP_CLIENT_SECRET'] ?: '${hashicorp_client_secret}'}")
     private String clientSecret;
 
     private String organisationId;
