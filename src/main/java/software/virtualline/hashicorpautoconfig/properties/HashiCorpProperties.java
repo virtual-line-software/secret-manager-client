@@ -9,14 +9,31 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConfigurationProperties("vls.hashicorp")
-@PropertySource("file:${user.home}/.vls/credentials")
+@PropertySource(value = "file:${user.home}/.vls/credentials", ignoreResourceNotFound = true)
 public class HashiCorpProperties {
+
+//    @Value("#{systemEnvironment['HASHICORP_CLIENT_ID'] ?: '${hashicorp_client_id}'}")
+//    private String clientId;
+//
+//    @Value("#{systemEnvironment['HASHICORP_CLIENT_SECRET'] ?: '${hashicorp_client_secret}'}")
+//    private String clientSecret;
+
+//    @Value("${HASHICORP_CLIENT_ID:${hashicorp_client_id}}")
+//    private String clientId;
+//
+//    @Value("${HASHICORP_CLIENT_SECRET:${hashicorp_client_secret}}")
+//    private String clientSecret;
 
     @Value("#{systemEnvironment['HASHICORP_CLIENT_ID'] ?: '${hashicorp_client_id}'}")
     private String clientId;
-
     @Value("#{systemEnvironment['HASHICORP_CLIENT_SECRET'] ?: '${hashicorp_client_secret}'}")
     private String clientSecret;
+
+//    @Value("${hashicorp_client_id}")
+//    private String clientId;
+//
+//    @Value("${hashicorp_client_secret}")
+//    private String clientSecret;
 
     private String organisationId;
 
