@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'software.virtualline'
-version = '2.0.15'
+version = '2.0.16'
 
 java {
 	sourceCompatibility = '21'
