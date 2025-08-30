@@ -52,7 +52,7 @@ publishing {
 			ext.extProgram = new Properties()
 			extProgram.load(file(System.getProperty("user.home") + "/.vls/credentials").newDataInputStream())
 			name = "GitHubPackages"
-			url = uri("https://maven.pkg.github.com/virtual-line-software/vls-registry")
+			url = uri("https://maven.pkg.github.com/virtual-line-software/secret-manager-client")
 			credentials {
 				username = extProgram['github_user'] ?: System.getenv("USERNAME")
 				password = extProgram['github_token'] ?: System.getenv("TOKEN")
@@ -62,6 +62,7 @@ publishing {
 	publications {
 		gpr(MavenPublication) {
 			from(components.java)
+			artifactId = 'secret-manager-client'
 		}
 	}
 }
