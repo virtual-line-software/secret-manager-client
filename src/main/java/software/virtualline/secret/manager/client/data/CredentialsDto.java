@@ -1,4 +1,4 @@
-package software.virtualline.hashicorpautoconfig.data;
+package software.virtualline.secret.manager.client.data;
 
 import java.util.Map;
 
