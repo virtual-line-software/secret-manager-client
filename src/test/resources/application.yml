@@ -1,0 +1,4 @@
+vls:
+  secret.manager.client:
+    project-id: ${SECRET_MANGER_PROJECT_ID:aviasis-470609}
+    secret-name: ${SECRET_MANGER_SECRET_NAME:av-ticket-assistant-dev}

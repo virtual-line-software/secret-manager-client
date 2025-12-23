@@ -3,15 +3,17 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 plugins {
 	id 'java-library'
 	id 'maven-publish'
-	id 'org.springframework.boot' version '3.2.5' apply false
-	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.springframework.boot' version '4.0.1' apply false
+	id 'io.spring.dependency-management' version "1.1.7"
 }
 
 group = 'software.virtualline'
-version = '1.0.0'
+version = '1.0.1'
 
 java {
-	sourceCompatibility = '21'
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 configurations {
@@ -34,29 +36,49 @@ dependencyManagement {
 	}
 }
 
+ext {
+    lombokVersion = '1.18.42'
+}
+
 dependencies {
 	api 'org.springframework.security:spring-security-oauth2-client'
 	api 'org.springframework.boot:spring-boot-starter-json'
 	api 'org.springframework:spring-web'
 	api 'org.springframework:spring-webflux'
 
-	implementation "com.google.cloud:google-cloud-secretmanager:2.73.0"
+	implementation "com.google.cloud:google-cloud-secretmanager:2.81.0"
 
-	implementation 'org.projectlombok:lombok:1.18.30'
-	annotationProcessor 'org.projectlombok:lombok:1.18.30'
+	implementation "org.projectlombok:lombok:$lombokVersion"
+	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 }
 
 publishing {
 	repositories {
 		maven {
-			ext.extProgram = new Properties()
-			extProgram.load(file(System.getProperty("user.home") + "/.vls/credentials").newDataInputStream())
-			name = "GitHubPackages"
-			url = uri("https://maven.pkg.github.com/virtual-line-software/secret-manager-client")
-			credentials {
-				username = extProgram['github_user'] ?: System.getenv("USERNAME")
-				password = extProgram['github_token'] ?: System.getenv("TOKEN")
-			}
+            def extProgram = new Properties()
+            def credentialsFile = file("${System.getProperty('user.home')}/.vls/credentials")
+
+            def githubUser = System.getenv("GITHUB_USER")
+            def githubToken = System.getenv("GITHUB_TOKEN")
+
+            if (!githubUser || !githubToken) {
+                if (credentialsFile.exists()) {
+                    extProgram.load(credentialsFile.newDataInputStream())
+                    githubUser = githubUser ?: extProgram['github_user']
+                    githubToken = githubToken ?: extProgram['github_token']
+                }
+            }
+
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/virtual-line-software/secret-manager-client")
+
+            credentials {
+                username = githubUser
+                password = githubToken
+            }
 		}
 	}
 	publications {
